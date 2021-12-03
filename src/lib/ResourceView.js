@@ -19,18 +19,12 @@ class ResourceView extends Component {
     render() {
 
         const {schedulerData, contentScrollbarHeight, slotClickedFunc, slotItemTemplateResolver, toggleExpandFunc} = this.props;
-        const {renderData, config} = schedulerData;
+        const {renderData} = schedulerData;
 
         let width = schedulerData.getResourceTableWidth() - 2;
         let paddingBottom = contentScrollbarHeight;
         let displayRenderData = renderData.filter(o => o.render);
-
         let resourceList = displayRenderData.map((item) => {
-            let bgColor = config.defaultEventBgColor;
-            if (!!item.slotColor){
-                bgColor = item.slotColor;
-            }
-            
             let indents = [];
             for(let i=0;i<item.indent;i++) {
                 indents.push(<span key={`es${i}`} className="expander-space"></span>);
@@ -52,46 +46,34 @@ class ResourceView extends Component {
                 );
             }
             indents.push(indent);
-
-            let a = slotClickedFunc != undefined ? <span className="slot-cell">{indents}<a className="slot-text" style={{width: width}} onClick={() => {
+                    
+            let a = slotClickedFunc != undefined ? <span className="slot-cell">{indents}<a className="slot-text" onClick={() => {
                 slotClickedFunc(schedulerData, item);
             }}>{item.slotName}</a></span>
-                : <span className="slot-cell">{indents}<span className="slot-text header4-text overflow-text" style={{width: width - 80}}>{item.slotName}</span></span>;
+                : <span className="slot-cell">{indents}<span className="slot-text">{item.slotName}</span></span>;
             let slotItem = (
-                <div style={{width: width}}>
-                    <div className="overflow-text header2-text" style={{textAlign: "left", color: '#F08421', fontSize: '14px', marginBottom:'15px'}}>
-                         {item.slotIssue ? item.slotIssue : ''}
-                    </div>
-                    <div className="overflow-text header2-text" style={{textAlign: "left", }}>
+                <div title={item.slotName} className="overflow-text header2-text" style={{textAlign: "left"}}>
                     {a}
-                    </div>
-                     <div className="overflow-text header2-text" style={{textAlign: "left", marginTop: '15px'}}>
-                         <span className=' overflow-text header3-text'>Assignee:</span> {item.slotAuthor ? item.slotAuthor : 'Unassignee'}
-                    </div>
                 </div>
-                 
             );
-
             if(!!slotItemTemplateResolver) {
                 let temp = slotItemTemplateResolver(schedulerData, item, slotClickedFunc, width, "overflow-text header2-text");
                 if(!!temp)
                     slotItem = temp;
             }
 
-            let tdStyle = { height: item.rowHeight, display: 'inline-block' };
+            let tdStyle = {height: item.rowHeight};
             if(item.groupOnly) {
                 tdStyle = {
                     ...tdStyle,
-                    backgroundColor: schedulerData.config.groupOnlySlotColor,
+                    backgroundColor: schedulerData.config.groupOnlySlotColor
                 };
             }
 
             return (
                 <tr key={item.slotId}>
                     <td data-resource-id={item.slotId} style={tdStyle}>
-                        <div style={{borderLeft: `6px solid ${bgColor}`}}>
-                             {slotItem}
-                        </div>
+                        {slotItem}
                     </td>
                 </tr>
             );

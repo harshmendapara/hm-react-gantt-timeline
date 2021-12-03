@@ -36,30 +36,23 @@ class HeaderView extends Component {
                     let pFormattedList = config.nonAgendaDayCellHeaderFormat.split('|').map(item => datetime.format(item));
                     let element;
 
-                    let pFormattedListDay = config.nonAgendaOtherCellHeaderFormatDay.split('|').map(item => datetime.format(item));
-
                     if (typeof nonAgendaCellHeaderTemplateResolver === 'function') {
-                        element = nonAgendaCellHeaderTemplateResolver(schedulerData, item, pFormattedList, pFormattedListDay, style)
+                        element = nonAgendaCellHeaderTemplateResolver(schedulerData, item, pFormattedList, style)
                     }
                     else {
                         const pList = pFormattedList.map((item, index) => (
                             <div key={index}>{item}</div>
                         ));
-                        const pListDay = pFormattedListDay.map((item, index) => (
-                            <div key={index}>{item}</div>
-                        ));
-                       
+
                         element = (
                             <th key={item.time} className="header3-text" style={style}>
                                 <div>
                                     {pList}
                                 </div>
-                                <div>
-                                    {pListDay}
-                                </div>
                             </th>
                         );
                     }
+
                     headerList.push(element);
                 }
             })
@@ -67,41 +60,23 @@ class HeaderView extends Component {
         else {
             headerList = headers.map((item, index) => {
                 let datetime = localeMoment(item.time);
-
-                let isCurrentDate = datetime.isSame(new Date(), 'day');
-
                 style = !!item.nonWorkingTime ? {width: cellWidth, color: config.nonWorkingTimeHeadColor, backgroundColor: config.nonWorkingTimeHeadBgColor} : {width: cellWidth};
-                if (item.isFriday) {
-                    style = { ...style, borderRight: '2px solid #F08421'}
-                }
                 if(index === headers.length - 1)
                     style = !!item.nonWorkingTime ? {color: config.nonWorkingTimeHeadColor, backgroundColor: config.nonWorkingTimeHeadBgColor} : {};
 
-                if (isCurrentDate)
-                    style = { ...style, backgroundColor: config.currentDayBgColor}
-
                 let pFormattedList = config.nonAgendaOtherCellHeaderFormat.split('|').map(item => datetime.format(item));
-                let pFormattedListDay = config.nonAgendaOtherCellHeaderFormatDay.split('|').map(item => datetime.format(item));
-                
 
                 if (typeof nonAgendaCellHeaderTemplateResolver === 'function') {
-                    return nonAgendaCellHeaderTemplateResolver(schedulerData, item, pFormattedList, pFormattedListDay, style)
+                    return nonAgendaCellHeaderTemplateResolver(schedulerData, item, pFormattedList, style)
                 }
 
                 const pList = pFormattedList.map((item, index) => (
                     <div key={index}>{item}</div>
                 ));
 
-                const pListDay = pFormattedListDay.map((item, index) => (
-                    <div key={index}>{item}</div>
-                ));
-
                 return (
                     <th key={item.time} className="header3-text" style={style}>
-                         <div>
-                           {pListDay}
-                        </div>
-                        <div className="headerDate-text">
+                        <div>
                             {pList}
                         </div>
                     </th>

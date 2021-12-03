@@ -5,7 +5,6 @@ import Summary from './Summary'
 import SelectedArea from './SelectedArea'
 import {CellUnits, DATETIME_FORMAT, SummaryPos} from './index'
 import {getPos} from './Util'
-import {DnDTypes} from './DnDTypes'
 const supportTouch = 'ontouchstart' in window;
 
 class ResourceEvents extends Component {
@@ -204,14 +203,23 @@ class ResourceEvents extends Component {
         if(hasConflict) {
             const {conflictOccurred} = this.props;
             if(conflictOccurred != undefined){
-                conflictOccurred(schedulerData, 'New', {
-                    id: undefined,
-                    start: startTime,
-                    end: endTime,
-                    slotId: slotId,
-                    slotName: slotName,
-                    title: undefined,
-                }, DnDTypes.EVENT, slotId, slotName, startTime, endTime);
+                conflictOccurred(
+                    schedulerData,
+                    "New",
+                    {
+                        id: undefined,
+                        start: startTime,
+                        end: endTime,
+                        slotId: slotId,
+                        slotName: slotName,
+                        title: undefined,
+                    },
+                    "event",
+                    slotId,
+                    slotName,
+                    startTime,
+                    endTime
+                );
             }
             else {
                 console.log('Conflict occurred, set conflictOccurred func in Scheduler to handle it');

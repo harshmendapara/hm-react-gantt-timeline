@@ -282,8 +282,7 @@ export default class SchedulerData {
 
     getSchedulerWidth() {
         let baseWidth = this.documentWidth - this.config.besidesWidth > 0 ? this.documentWidth - this.config.besidesWidth : 0;
-        let minWidth = (parseInt(baseWidth * Number(this.config.schedulerWidth.slice(0,-1)) / 100)) <= this.config.schedulerMinWidth ? this.config.schedulerMinWidth : parseInt(baseWidth * Number(this.config.schedulerWidth.slice(0,-1)) / 100);
-        return this.isSchedulerResponsive() ? minWidth : this.config.schedulerWidth;
+        return this.isSchedulerResponsive() ? parseInt(baseWidth * Number(this.config.schedulerWidth.slice(0,-1)) / 100) : this.config.schedulerWidth;
     }    
 
     getResourceTableWidth() {
@@ -613,8 +612,7 @@ export default class SchedulerData {
                         if(hour >= this.config.dayStartFrom && hour <= this.config.dayStopTo) {
                             let time = header.format(DATETIME_FORMAT);
                             let nonWorkingTime = this.behaviors.isNonWorkingTimeFunc(this, time);
-                            let isFriday = this.behaviors.isFridayTimeFunc(this, time);
-                            headers.push({ time: time, nonWorkingTime: nonWorkingTime, isFriday: isFriday });
+                            headers.push({ time: time, nonWorkingTime: nonWorkingTime });
                         }
     
                         header = header.add(this.config.minuteStep, 'minutes');
@@ -628,8 +626,7 @@ export default class SchedulerData {
                     if( this.config.displayWeekend || (dayOfWeek !== 0 && dayOfWeek !== 6))
                     {
                         let nonWorkingTime = this.behaviors.isNonWorkingTimeFunc(this, time);
-                        let isFriday = this.behaviors.isFridayTimeFunc(this, time);
-                        headers.push({ time: time, nonWorkingTime: nonWorkingTime , isFriday: isFriday });
+                        headers.push({ time: time, nonWorkingTime: nonWorkingTime });
                     }
 
                     header = header.add(1, 'days');
@@ -717,9 +714,6 @@ export default class SchedulerData {
             let slotRenderData = {
                 slotId: slot.id,
                 slotName: slot.name,
-                slotAuthor: slot.author,
-                slotColor: slot.bgColor,
-                slotIssue: slot.issue,
                 parentId: slot.parentId,
                 groupOnly: slot.groupOnly,
                 hasSummary: false,

@@ -3,52 +3,38 @@ const DemoData = {
         {
             id: 'r0',
             name: 'Resource0',
-            bgColor: 'red',
-            issue: '#15'
+            groupOnly: true,
         },
         {
             id: 'r1',
             name: 'Resource1',
-            author: "Hiram test",
-            bgColor: '#D9D9D9',
-            issue: '#1'
+            parentId: 'r0',
         },
         {
             id: 'r2',
             name: 'Resource2',
-            author: "Hiram test",
-            issue: '#99'
+            parentId: 'r3',
         },
         {
             id: 'r3',
             name: 'Resource3',
-            author: "Federico Osorio",
-            issue: '#645'
+            parentId: 'r1',
         },
         {
             id: 'r4',
             name: 'Resource4',
-            author: "Federico Osorio",
-            issue: '#33'
         },
         {
             id: 'r5',
             name: 'Resource5',
-            author: "Federico Osorio",
-            issue: '#7'
         },
         {
             id: 'r6',
             name: 'Resource6',
-            author: "Federico Osorio",
-            issue: '#32'
         },
         {
             id: 'r7',
-            name: 'Resource 7Resource7, Resource7Resource7Resource7 Resource7Resource7Resource7Resource7Resource7Resource7Resource7',
-            author: "Federico Osorio",
-            bgColor: '#FA9E95',
-            issue: '#20'
+            name: 'Resource7Resource7Resource7Resource7Resource7',
         }
     ],
     events: [
@@ -58,8 +44,6 @@ const DemoData = {
             end: '2017-12-19 23:30:00',
             resourceId: 'r1',
             title: 'I am finished',
-            label: 'QA Failed',
-            img: 'https://miro.medium.com/fit/c/28/28/1*UJzclN5h-DYWjRyVqXThUw.png',
             bgColor: '#D9D9D9',
             showPopover: false
         },
@@ -69,7 +53,6 @@ const DemoData = {
             end: '2017-12-26 23:30:00',
             resourceId: 'r2',
             title: 'I am not resizable',
-            label: 'Development',
             resizable: false
         },
         {
@@ -78,7 +61,6 @@ const DemoData = {
             end: '2017-12-20 23:30:00',
             resourceId: 'r3',
             title: 'I am not movable',
-            label: 'Development',
             movable: false
         },
         {
@@ -87,7 +69,6 @@ const DemoData = {
             end: '2017-12-20 23:30:00',
             resourceId: 'r4',
             title: 'I am not start-resizable',
-            label: 'QA Complete',
             startResizable: false,
         },
         {
@@ -96,7 +77,6 @@ const DemoData = {
             end: '2017-12-20 23:30:00',
             resourceId: 'r5',
             title: 'I am not end-resizable',
-            label: 'QA',
             endResizable: false
         },
         {
@@ -104,15 +84,13 @@ const DemoData = {
             start: '2017-12-19 15:35:00',
             end: '2017-12-19 23:30:00',
             resourceId: 'r6',
-            title: 'I am normal',
-            label: 'To Do',
+            title: 'I am normal'
         },
         {
             id: 7,
             start: '2017-12-19 15:40:00',
             end: '2017-12-20 23:30:00',
             resourceId: 'r7',
-            label: 'Development',
             title: 'I am exceptional',
             bgColor: '#FA9E95'
         },
@@ -120,12 +98,55 @@ const DemoData = {
             id: 8,
             start: '2017-12-19 15:50:00',
             end: '2017-12-19 23:30:00',
-            label: 'QA',
-            resourceId: 'r0',
+            resourceId: 'r1',
             title: 'I am locked',
             movable: false,
             resizable: false,
             bgColor: 'red'
+        },
+        {
+            id: 9,
+            start: '2017-12-19 16:30:00',
+            end: '2017-12-27 23:30:00',
+            resourceId: 'r1',
+            title: 'R1 has many tasks 1'
+        },
+        {
+            id: 10,
+            start: '2017-12-19 17:30:00',
+            end: '2017-12-19 23:30:00',
+            resourceId: 'r1',
+            title: 'R1 has recurring tasks every week on Tuesday, Friday',
+            rrule: 'FREQ=WEEKLY;DTSTART=20171219T013000Z;BYDAY=TU,FR',
+            bgColor: '#f759ab'
+        },
+        {
+            id: 11,
+            start: '2017-12-19 18:30:00',
+            end: '2017-12-20 23:30:00',
+            resourceId: 'r1',
+            title: 'R1 has many tasks 3'
+        },
+        {
+            id: 12,
+            start: '2017-12-20 18:30:00',
+            end: '2017-12-20 23:30:00',
+            resourceId: 'r1',
+            title: 'R1 has many tasks 4'
+        },
+        {
+            id: 13,
+            start: '2017-12-21 18:30:00',
+            end: '2017-12-24 23:30:00',
+            resourceId: 'r1',
+            title: 'R1 has many tasks 5'
+        },
+        {
+            id: 14,
+            start: '2017-12-23 18:30:00',
+            end: '2017-12-27 23:30:00',
+            resourceId: 'r1',
+            title: 'R1 has many tasks 6'
         },
     ],
     eventsForTaskView: [

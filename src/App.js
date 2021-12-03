@@ -1,10 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
-import Scheduler from "./lib/index";
+import Basic from "./components/index";
+// import React from 'react';
 function App() {
     return (
         <div className="App">
-            <Scheduler />
+            <Basic />
         </div>
     );
 }
