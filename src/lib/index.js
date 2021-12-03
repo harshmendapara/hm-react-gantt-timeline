@@ -51,7 +51,7 @@ import SchedulerData from "./SchedulerData";
 import DemoData from "./DemoData";
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
-
+import "./css/style.css";
 class Scheduler extends Component {
     constructor(props) {
         super(props);
